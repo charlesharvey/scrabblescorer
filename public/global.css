@@ -266,6 +266,14 @@ th {
   font-size: 1.4em;
 }
 
+.hidden {
+  opacity: 0;
+  transition: all 0.3s;
+}
+.hidden:hover {
+  opacity: 0.5;
+}
+
 th {
   font-size: 2em;
 }

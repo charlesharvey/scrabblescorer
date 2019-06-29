@@ -31,6 +31,14 @@
         }
         return 0;
       },
+      average: function() {
+        if (this.scores.length > 0) {
+          const av  =  this.scores.reduce(reducer) / this.scores.length;
+          return Math.round(av);
+        } else {
+          return 0;
+        }
+      },
       addScore: function(newScore) {
         this.scores = [...this.scores, newScore];
       }
@@ -133,7 +141,7 @@
   <h1>{appName}</h1>
   <nav>
     {#if gameStarted}
-  <a on:click|preventDefault={endGame} href="#">End Game</a>
+  <a on:click|preventDefault={endGame} href="#end_game">End Game</a>
   {/if}
   </nav>
 
@@ -178,6 +186,10 @@
                   {#each player.scores as score}
                     <div class="score"> {score} </div>
                   {/each}
+
+                  <div class="score hidden">
+                  Average: {player.average()}
+                  </div>
 
                 </td>
               {/each}

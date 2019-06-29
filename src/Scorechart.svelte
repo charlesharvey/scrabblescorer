@@ -89,6 +89,6 @@
   }
 </script>
 
-<div>
+<div on:click={updateChartData}>
   <canvas id="myChart" width="400" height="300" />
 </div>
