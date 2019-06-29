@@ -43,7 +43,8 @@
                 labelString: "Score"
               },
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                  suggestedMax: 10
               }
             }
           ]

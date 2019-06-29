@@ -19,22 +19,29 @@
     }
   }
 
+
+  function generatePlayer(name, id, scores) {
+    const newPlayer = {
+      name: name,
+      id: id,
+      scores: scores,
+      total: function() {
+        if (this.scores.length > 0) {
+          return this.scores.reduce(reducer);
+        }
+        return 0;
+      },
+      addScore: function(newScore) {
+        this.scores = [...this.scores, newScore];
+      }
+    };
+    return newPlayer;
+  }
+
   function addPlayer() {
     if (playerName.value) {
-      let newPlayer = {
-        name: playerName.value,
-        id: players.length,
-        scores: [],
-        total: function() {
-          if (this.scores.length > 0) {
-            return this.scores.reduce(reducer);
-          }
-          return 0;
-        },
-        addScore: function(newScore) {
-          this.scores = [...this.scores, newScore];
-        }
-      };
+
+      const newPlayer = generatePlayer( playerName.value, players.length, [] );
       players = [...players, newPlayer];
       playerName.value = null;
     }
@@ -60,24 +67,86 @@
         players = players;
         e.target.value = null;
         updateCurrentPlayer();
+
+        saveScores();
+
+
       }
     }
   }
 
+  function endGame() {
+    players = [];
+    gameStarted = false;
+        localStorage.removeItem('scrabble_scores' );
+  }
+
+
+  function saveScores() {
+    localStorage.setItem('scrabble_scores', JSON.stringify(players)  );
+  }
+
+
+
+  function loadScores() {
+    const saved_players_string = localStorage.getItem('scrabble_scores');
+
+    if (saved_players_string) {
+
+      const saved_players = JSON.parse(saved_players_string);
+
+      if (saved_players.length > 0) {
+        let loaded_players = [];
+        saved_players.forEach( (np) => {
+          console.log(np.scores);
+          const new_player = generatePlayer( np.name, np.id, np.scores );
+          loaded_players.push(new_player);
+        });
+
+        players =  loaded_players;
+        gameStarted = true;
+      }
+
+    }
+  }
+
   //  schedules a callback to run as soon as the component has been mounted to the DOM.
-  onMount(() => {});
+  onMount(() => {
+
+    loadScores();
+  });
 
   //  when component is destroy, unsubscribe from any subscriptions to prevent memory leaks
-  onDestroy(() => {});
+  onDestroy(() => {
+  });
 </script>
 
 <style>
 
 </style>
 
-<div class="container">
+
+
+
+<header>
 
   <h1>{appName}</h1>
+  <nav>
+    {#if gameStarted}
+  <a on:click|preventDefault={endGame} href="#">End Game</a>
+  {/if}
+  </nav>
+
+
+
+
+</header>
+
+
+
+<div class="container">
+
+
 
   {#if gameStarted}
     <div class="columns">
