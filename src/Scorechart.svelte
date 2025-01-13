@@ -7,7 +7,7 @@
     "#2ecc71bb",
     "#f1c40fbb",
     "#9b59b6bb",
-    "#e67e22bb"
+    "#e67e22bb",
   ];
   let chart;
 
@@ -22,7 +22,7 @@
       labels: [1],
       type: "line",
       data: {
-        datasets: []
+        datasets: [],
       },
       options: {
         scales: {
@@ -31,25 +31,25 @@
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: "Turn"
-              }
-            }
+                labelString: "Turn",
+              },
+            },
           ],
           yAxes: [
             {
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: "Score"
+                labelString: "Score",
               },
               ticks: {
                 beginAtZero: true,
-                  suggestedMax: 10
-              }
-            }
-          ]
-        }
-      }
+                suggestedMax: 10,
+              },
+            },
+          ],
+        },
+      },
     });
   }
 
@@ -76,7 +76,7 @@
           data: cuml_scs,
           // backgroundColor: colors[pindex % colors.length],
           borderColor: colors[pindex % colors.length],
-          fill: false
+          fill: false,
         };
         chartData.push(dataset);
       });
@@ -89,6 +89,7 @@
   }
 </script>
 
-<div on:click={updateChartData}>
+<div>
   <canvas id="myChart" width="400" height="300" />
+  <button id="update_chart" on:click={updateChartData}>Update</button>
 </div>

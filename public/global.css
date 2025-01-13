@@ -281,6 +281,12 @@ th {
   background-color: rgba(100, 255, 200, 0.5);
 }
 
+#update_chart {
+  float: right;
+  font-size: 1em;
+  background-color: grey;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 750px;
